@@ -1,0 +1,19 @@
+@import "@/scss/abstracts/mixins";
+@import "@/scss/abstracts/varibales";
+@import "@/scss/abstracts/placeholders";
+
+.container {
+  @include container;
+}
+
+.header {
+  @extend %box-inset;
+
+  margin-top: $gap;
+  padding: $gap;
+
+  // .header h1
+  h1 {
+    @extend %font-header;
+  }
+}

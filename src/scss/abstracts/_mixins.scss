@@ -1,0 +1,9 @@
+@import "@/scss/abstracts/varibales";
+
+@mixin container {
+  padding: 0 $gap;
+  margin: 0 auto;
+  width: 100%;
+  max-width: $max-width;
+  box-sizing: border-box;
+}
