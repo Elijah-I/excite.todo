@@ -3,10 +3,12 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://elijah-i.github.io/excite.todo/",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "npm run build && npx gh-pages -d dist"
   },
   "dependencies": {
     "react": "^18.2.0",

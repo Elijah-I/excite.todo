@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "./public",
+    "outDir": "./dist",
     "target": "esnext",
     "lib": ["dom", "esnext", "dom.iterable"],
     "jsx": "react",
