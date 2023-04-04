@@ -1,13 +1,12 @@
 @import "@/scss/abstracts/variables";
 @import "@/scss/abstracts/placeholders";
 
-.todos {
+.todo:not(.todo_child) {
+  @extend %box;
+
   margin-top: $gap;
 }
 
-.empty {
-  @extend %font-header;
-
-  padding: $gap;
-  text-align: center;
+.todo_child {
+  margin-top: $gap;
 }
