@@ -1,0 +1,43 @@
+@import "@/scss/abstracts/placeholders";
+
+.container {
+  @extend %box-inset;
+  width: 20rem;
+  height: 20rem;
+  border-radius: 100%;
+  position: relative;
+  margin: calc($gap * 2) auto 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container b {
+  @extend %font-header;
+
+  position: relative;
+  top: -2rem;
+  z-index: 2;
+  font-size: 8rem;
+  opacity: 0.5;
+}
+
+.loader:before {
+  @extend %box-inset;
+
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: "";
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  filter: blur(1px);
+  animation: 5s rotate linear infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
