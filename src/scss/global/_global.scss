@@ -20,6 +20,7 @@ input[type="search"] {
   @extend %box-shadow;
 
   width: 100%;
+  min-height: 4.1rem;
   background: $white;
   padding: 0 calc($gap / 1.5);
   box-shadow: 0 0 1rem 0rem $primary-shadow-input;

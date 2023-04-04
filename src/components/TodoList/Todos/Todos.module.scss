@@ -4,7 +4,7 @@
 .todos {
   @extend %box;
 
-  margin-top: $gap;
+  margin-top: calc($gap * 2);
   padding: $gap;
 }
 

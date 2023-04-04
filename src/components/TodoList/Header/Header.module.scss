@@ -8,13 +8,14 @@
 .header {
   @extend %box-inset;
 
+  padding: $gap;
+  margin-top: $gap;
+  overflow: hidden;
+  position: relative;
   display: flex;
   gap: $gap;
   align-items: center;
   justify-content: space-between;
-
-  margin-top: $gap;
-  padding: $gap;
 }
 
 .label {
@@ -29,9 +30,7 @@
     display: inline-block;
     width: 1.6rem;
     height: 1.6rem;
+    min-width: 1.6rem;
     margin-right: calc($gap / 2);
   }
-}
-.add {
-  @extend %button-round;
 }

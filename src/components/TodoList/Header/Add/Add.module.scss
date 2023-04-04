@@ -1,0 +1,40 @@
+@import "@/scss/abstracts/variables";
+@import "@/scss/abstracts/placeholders";
+
+.adding {
+  @extend %box-inset;
+
+  width: calc(100% - $gap * 2);
+  height: 100%;
+  padding: 0 $gap;
+
+  display: flex;
+  gap: $gap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cancel,
+.add {
+  @extend %button-round;
+}
+
+.adding,
+.adding_exit,
+.adding_exit_done,
+.adding_exit_active,
+.adding_enter,
+.adding_enter_done,
+.adding_enter_active {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  opacity: 0;
+  will-change: top, opacity;
+  transition: top 0.3s ease, opacity 0.3s ease;
+}
+.adding_enter_done,
+.adding_enter_active {
+  opacity: 1;
+  top: 0;
+}
