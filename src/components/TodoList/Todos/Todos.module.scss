@@ -2,12 +2,14 @@
 @import "@/scss/abstracts/placeholders";
 
 .todos {
-  margin-top: $gap;
+  padding-top: $gap;
 }
 
 .empty {
+  @extend %box;
   @extend %font-header;
 
   padding: $gap;
+  margin-top: $gap;
   text-align: center;
 }

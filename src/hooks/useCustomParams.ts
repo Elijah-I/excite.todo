@@ -13,10 +13,6 @@ export const useCustomParams = (): [
 
   const setCustomParams = (params: UrlSearchParams) => {
     Object.entries(params).forEach(([param, value]) => {
-      if (param === "option" && value === URL_FILTER_OPTIONS.ALL) {
-        value = "";
-      }
-
       if (value) {
         if (searchParams.has(param)) searchParams.set(param, value);
         else searchParams.append(param, value);

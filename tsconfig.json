@@ -18,6 +18,7 @@
     "resolveJsonModule": true,
     "paths": {
       "types/*": ["types/*"],
+      "redux/*": ["redux/*"],
       "icons/*": ["assets/icons/*"],
       "components/*": ["components/*"]
     }

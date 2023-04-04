@@ -1,5 +1,5 @@
 export enum URL_FILTER_OPTIONS {
-  "ALL" = "all",
+  "ALL" = "",
   "NEW" = "new",
   "DONE" = "done"
 }

@@ -16,7 +16,7 @@ export const Options = () => {
             setCustomParams({ option: filterOption });
           }}
         >
-          {filterOption}
+          {filterOption || "all"}
         </button>
       ))}
     </div>

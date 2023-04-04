@@ -1,12 +1,14 @@
+import { URL_FILTER_OPTIONS } from "./url.search.params";
+
 export interface TodoItem {
   id: string;
   order: number;
-  done: boolean;
+  done: URL_FILTER_OPTIONS;
   content: string;
   children: TodoItem[];
 }
 
 export interface TodoState {
-  items: TodoItem[];
+  todos: TodoItem[];
   isLoading: boolean;
 }
