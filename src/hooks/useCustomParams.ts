@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import { UrlSearchParams } from "types/url.search.params";
+import { URL_FILTER_OPTIONS, UrlSearchParams } from "types/url.search.params";
 
 export const useCustomParams = (): [
   Required<UrlSearchParams>,
@@ -7,9 +7,16 @@ export const useCustomParams = (): [
 ] => {
   const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get("search") || "";
+  const option =
+    (searchParams.get("option") as URL_FILTER_OPTIONS) ||
+    URL_FILTER_OPTIONS.ALL;
 
   const setCustomParams = (params: UrlSearchParams) => {
     Object.entries(params).forEach(([param, value]) => {
+      if (param === "option" && value === URL_FILTER_OPTIONS.ALL) {
+        value = "";
+      }
+
       if (value) {
         if (searchParams.has(param)) searchParams.set(param, value);
         else searchParams.append(param, value);
@@ -21,5 +28,5 @@ export const useCustomParams = (): [
     setSearchParams(searchParams);
   };
 
-  return [{ search }, setCustomParams];
+  return [{ search, option }, setCustomParams];
 };
