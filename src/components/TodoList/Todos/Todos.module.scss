@@ -1,0 +1,16 @@
+@import "@/scss/abstracts/variables";
+@import "@/scss/abstracts/placeholders";
+
+.todos {
+  @extend %box;
+
+  margin-top: $gap;
+  padding: $gap;
+}
+
+.empty {
+  @extend %font-header;
+
+  padding: $gap;
+  text-align: center;
+}
