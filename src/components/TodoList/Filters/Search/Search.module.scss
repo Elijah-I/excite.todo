@@ -4,9 +4,35 @@
   flex: 1 1 calc(50% - $gap / 2);
   display: flex;
   gap: $gap;
+  position: relative;
 
   // .filters__search input
   input {
     flex: 1;
+    padding-left: 4rem !important;
+  }
+}
+
+.icon_drop,
+.icon_search {
+  position: absolute;
+  top: 1rem;
+  width: 2rem;
+  height: 2rem;
+  opacity: 0.5;
+}
+
+.icon_search {
+  left: 1rem;
+  cursor: text;
+}
+
+.icon_drop {
+  right: 13.5rem;
+  transition: opacity 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 1;
   }
 }
