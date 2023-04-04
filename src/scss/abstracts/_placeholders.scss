@@ -1,5 +1,13 @@
 @import "@/scss/abstracts/varibales";
 
+%container {
+  padding: 0 $gap;
+  margin: 0 auto;
+  width: 100%;
+  max-width: $max-width;
+  box-sizing: border-box;
+}
+
 %box {
   border-radius: $radius;
   background: $primary-bg-color;
@@ -12,6 +20,67 @@
 %box-inset {
   @extend %box;
   background: linear-gradient(145deg, $primary-shadow-inset, $secondary-shadow);
+}
+
+%box-shadow {
+  @extend %box;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50px;
+  background: linear-gradient(
+    145deg,
+    $primary-shadow-button,
+    $primary-shadow-inset
+  );
+}
+
+%button {
+  @extend %box-shadow;
+  @extend %font;
+
+  padding: 1.3rem $gap 1.2rem;
+  font-size: 1.4rem !important;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+  box-shadow: 0 0 1rem 0 $secondary-shadow-button;
+
+  &:hover {
+    box-shadow: 0 0 1rem 0.2rem $secondary-shadow-button;
+  }
+}
+
+%button-round {
+  @extend %button;
+  @extend %font-header;
+
+  font-size: 2.4rem !important;
+  padding: 0;
+  height: 4rem;
+  width: 4rem;
+}
+
+%button-selected {
+  @extend %button;
+
+  background: linear-gradient(
+    145deg,
+    $primary-shadow-button,
+    $selected-shadow-button
+  );
+  box-shadow: 0 0 1rem 0rem $secondary-shadow-button;
+
+  cursor: default;
+  pointer-events: none;
+}
+
+%font {
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: $primary-font-color;
 }
 
 %font-header {

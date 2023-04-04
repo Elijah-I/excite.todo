@@ -1,0 +1,34 @@
+@import "@/scss/abstracts/mixins";
+@import "@/scss/abstracts/varibales";
+@import "@/scss/abstracts/placeholders";
+
+html {
+  font-size: 10px;
+  @include media-mobile {
+    font-size: 8px;
+  }
+}
+
+body {
+  font: 400 1.6rem/1.6rem "Roboto", sans-serif;
+  background-color: $primary-bg-color;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="search"] {
+  @extend %box-shadow;
+
+  width: 100%;
+  background: $white;
+  padding: 0 calc($gap / 1.5);
+  box-shadow: 0 0 1rem 0rem $primary-shadow-input;
+
+  &:focus {
+    box-shadow: 0 0 1rem 0.2rem $primary-shadow-input;
+  }
+}
+
+button {
+  @extend %button;
+}

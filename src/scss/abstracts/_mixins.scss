@@ -1,9 +1,17 @@
-@import "@/scss/abstracts/varibales";
+@mixin media-notebook {
+  @media only screen and (max-width: 812px) {
+    @content;
+  }
+}
 
-@mixin container {
-  padding: 0 $gap;
-  margin: 0 auto;
-  width: 100%;
-  max-width: $max-width;
-  box-sizing: border-box;
+@mixin media-tablet {
+  @media only screen and (max-width: 680px) {
+    @content;
+  }
+}
+
+@mixin media-mobile {
+  @media only screen and (max-width: 481px) {
+    @content;
+  }
 }

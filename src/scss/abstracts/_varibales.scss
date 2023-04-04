@@ -1,15 +1,32 @@
+@import "@/scss/abstracts/mixins";
+
 // bg colors
+$white: #f5f8ff;
 $primary-bg-color: #cbdbfb;
 
 // font clors
-$primary-font-color: #192e57;
+$primary-font-color: #344870;
 
 // shadows
 $primary-shadow: #adbad5;
 $secondary-shadow: #e9fcff;
 $primary-shadow-inset: #b7c5e2;
+$primary-shadow-input: #6d89c2;
+$primary-shadow-button: #d9eaff;
+$secondary-shadow-button: #344870;
+$selected-shadow-button: #9a8ddc;
 
 // sizes
-$gap: 3rem;
-$radius: 5rem;
+:root {
+  --gap: 3rem;
+  --radius: 5rem;
+
+  @include media-mobile {
+    --gap: 2rem;
+    --radius: 3rem;
+  }
+}
+
+$gap: var(--gap);
+$radius: var(--radius);
 $max-width: 120rem;
