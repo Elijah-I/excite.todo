@@ -1,0 +1,19 @@
+@import "@/scss/abstracts/mixins";
+@import "@/scss/abstracts/varibales";
+@import "@/scss/abstracts/placeholders";
+
+.options {
+  flex: 1 1 calc(50% - $gap / 2);
+  display: flex;
+  justify-content: flex-end;
+  gap: $gap;
+
+  @include media-notebook {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}
+
+.selected {
+  @extend %button-selected;
+}

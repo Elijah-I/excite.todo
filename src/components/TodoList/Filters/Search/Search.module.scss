@@ -1,0 +1,12 @@
+@import "@/scss/abstracts/varibales";
+
+.search {
+  flex: 1 1 calc(50% - $gap / 2);
+  display: flex;
+  gap: $gap;
+
+  // .filters__search input
+  input {
+    flex: 1;
+  }
+}

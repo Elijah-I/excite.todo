@@ -1,0 +1,37 @@
+@import "@/scss/abstracts/varibales";
+@import "@/scss/abstracts/placeholders";
+
+.container {
+  @extend %container;
+}
+
+.header {
+  @extend %box-inset;
+
+  display: flex;
+  gap: $gap;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: $gap;
+  padding: $gap;
+}
+
+.label {
+  @extend %font-header;
+
+  pointer-events: none;
+
+  &::before {
+    @extend %button-round;
+
+    content: "";
+    display: inline-block;
+    width: 1.6rem;
+    height: 1.6rem;
+    margin-right: calc($gap / 2);
+  }
+}
+.add {
+  @extend %button-round;
+}
