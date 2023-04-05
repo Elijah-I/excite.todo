@@ -1,5 +1,5 @@
 import React from 'react';
-import { TodoControls } from 'components/TodoList/TodoControls/TodoControls';
+import { TodoControls } from 'components/Todos/TodoControls/TodoControls';
 import type { TodoItem } from 'types/todo.state';
 import styles from './Todo.module.scss';
 

@@ -1,15 +1,15 @@
 import React from 'react';
-import styles from './TodoList.module.scss';
 import { Header } from './Header/Header';
 import { Filters } from './Filters/Filters';
-import { Todos } from './Todos/Todos';
+import { TodoList } from './TodoList/TodoList';
+import styles from './Todos.module.scss';
 
-export const TodoList = () => {
+export const Todos = () => {
   return (
     <div className={styles.container}>
       <Header />
       <Filters />
-      <Todos />
+      <TodoList />
     </div>
   );
 };

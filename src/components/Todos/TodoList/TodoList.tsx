@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
 import { todoAPI } from 'redux/slices/todoAPI';
 import { WithLoader } from 'HOC/WithLoader';
-import { Todo } from './Todo/Todo';
-import styles from './Todos.module.scss';
+import { Todo } from 'components/Todos/Todo/Todo';
 import { useCustomParams } from 'hooks/useCustomParams';
+import styles from './TodoList.module.scss';
 
-export const Todos = () => {
+export const TodoList = () => {
   const dispatch = useAppDispatch();
   const [{ search, option }] = useCustomParams();
   const { todos, isLoading } = useAppSelector((state) => state.todo);
