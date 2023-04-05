@@ -16,6 +16,7 @@ export const Todo = ({ data, asChild }: Props) => {
 
   return (
     <div className={containerClass.join(' ')}>
+      <i></i>
       <div className={styles.label}>{data.content}</div>
       <TodoControls id={data.id} />
       {!!data.children.length &&
