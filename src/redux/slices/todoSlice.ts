@@ -27,6 +27,14 @@ const todoSlice = createSlice({
     [`${todoAPI.createTodo.fulfilled}`]: (state, action) => {
       state.todos = action.payload.todos;
       delete state.isUpdating[action.payload.currentTodo];
+    },
+
+    [`${todoAPI.updateTodo.pending}`]: (state, action) => {
+      state.isUpdating[action.meta.arg.id] = true;
+    },
+    [`${todoAPI.updateTodo.fulfilled}`]: (state, action) => {
+      state.todos = action.payload.todos;
+      delete state.isUpdating[action.payload.currentTodo];
     }
   }
 });

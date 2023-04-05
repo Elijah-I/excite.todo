@@ -7,8 +7,9 @@ import type { TodoItem, TodoState } from "types/todo.state";
 interface GetTodosPayload extends UrlSearchParams {}
 interface createTodoPayload {
   content: string;
-  id: string;
+  id: TodoItem["id"];
 }
+interface updateTodoPayload extends createTodoPayload {}
 
 const delay = (ms: number) =>
   new Promise<void>((resolve) => {
@@ -21,7 +22,7 @@ export const todoAPI = {
     return JSON.parse(localStorage.getItem("todos") || "[]");
   },
 
-  getTodoById(todos: TodoItem[], id: string): TodoItem | undefined {
+  getTodoById(todos: TodoItem[], id: TodoItem["id"]): TodoItem | undefined {
     let todoItem: TodoItem | undefined = undefined;
 
     todos.forEach((todo) => {
@@ -84,6 +85,22 @@ export const todoAPI = {
         content: payload.content,
         children: []
       });
+
+      localStorage.setItem("todos", JSON.stringify(todos));
+
+      return { todos, currentTodo: payload.id };
+    }
+  ),
+
+  updateTodo: createAsyncThunk(
+    "todo/updateTodo",
+    async (payload: updateTodoPayload) => {
+      const todos: TodoState["todos"] = await todoAPI.requestTodos();
+      const currentTodo = todoAPI.getTodoById(todos, payload.id);
+
+      if (currentTodo === undefined) return { todos, currentTodo: payload.id };
+
+      currentTodo.content = payload.content;
 
       localStorage.setItem("todos", JSON.stringify(todos));
 

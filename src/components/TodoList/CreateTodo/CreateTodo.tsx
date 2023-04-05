@@ -1,27 +1,26 @@
 import React from "react";
 import { CSSTransition } from "react-transition-group";
 import { useAppDispatch, useAppSelector } from "hooks/useRedux";
+import type { TodoItem } from "types/todo.state";
 import { todoAPI } from "redux/slices/todoAPI";
 import { WithLoader } from "HOC/WithLoader";
 import styles from "./CreateTodo.module.scss";
 
 interface Props {
-  id: string;
+  id: TodoItem["id"];
 }
 
 export const CreateTodo = ({ id }: Props) => {
   const dispatch = useAppDispatch();
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
   const { todos, isUpdating } = useAppSelector((state) => state.todo);
-  const currentTodo = todoAPI.getTodoById(todos, id);
   const currentIsUpdatind = todoAPI.getCurrentIsUpdatind(isUpdating, id);
+  const currentTodo = todoAPI.getTodoById(todos, id);
 
-  const inputRef = React.useRef<HTMLInputElement>(null);
   const [showAdd, setShowAdd] = React.useState(false);
   const [isEdit, setIsEdit] = React.useState(false);
-  const [content, setContent] = React.useState(
-    isEdit && currentTodo ? currentTodo.content : ""
-  );
+  const [content, setContent] = React.useState("");
 
   const save = () => {
     setContent("");
@@ -31,6 +30,14 @@ export const CreateTodo = ({ id }: Props) => {
     !isEdit &&
       dispatch(
         todoAPI.createTodo({
+          id,
+          content
+        })
+      );
+
+    isEdit &&
+      dispatch(
+        todoAPI.updateTodo({
           id,
           content
         })
@@ -53,6 +60,7 @@ export const CreateTodo = ({ id }: Props) => {
       onClick={() => {
         setIsEdit(true);
         setShowAdd(true);
+        setContent(currentTodo?.content || "");
         inputRef.current!.focus();
       }}
       className={styles.add}
