@@ -1,11 +1,12 @@
-@import "@/scss/abstracts/variables";
-@import "@/scss/abstracts/placeholders";
+@import '@/scss/abstracts/variables';
+@import '@/scss/abstracts/placeholders';
 
 .creation {
   @extend %box-inset;
 
   width: calc(100% - $gap * 2);
   height: 100%;
+  min-height: 5rem;
   padding: 0 $gap;
 
   display: flex;
@@ -25,16 +26,27 @@
   top: -100%;
   left: 0;
   opacity: 0;
+  z-index: 4;
+  visibility: hidden;
   will-change: top, opacity;
-  transition: top 0.3s ease, opacity 0.3s ease;
+  transition: top 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
 }
 .enter_done,
 .enter_active {
+  visibility: visible;
   opacity: 1;
   top: 0;
 }
 
-.cancel,
-.add {
+.button {
   @extend %button-round;
+}
+
+.new {
+  @extend %button-positive;
+}
+
+.delete,
+.done {
+  @extend %button-negative;
 }

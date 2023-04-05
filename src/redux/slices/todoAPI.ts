@@ -44,8 +44,10 @@ export const todoAPI = {
     let todoItem: TodoItem = {} as TodoItem;
 
     for (const todo of todos) {
-      if (todo.id === id) todoItem = todo;
-      else if (todo.children.length) todoItem = this.getById(todo.children, id);
+      if (todo.id === id) {
+        todoItem = todo;
+        break;
+      } else if (todo.children.length) todoItem = this.getById(todo.children, id);
     }
 
     return todoItem;
@@ -69,7 +71,7 @@ export const todoAPI = {
   createById(todos: TodoItem[], payload: CreatePayload): TodoItem[] {
     const todosAddPlace =
       payload.id === 'root' ? todos : todoAPI.getById(todos, payload.id).children;
-    todosAddPlace.push({
+    todosAddPlace.unshift({
       id: uniq(),
       order: todosAddPlace.length,
       done: URL_FILTER_OPTIONS.NEW,
@@ -117,7 +119,7 @@ export const todoAPI = {
       });
     }
 
-    return todos.reverse();
+    return todos;
   },
 
   get: createAsyncThunk('todo/get', async (payload: GetPayload): Promise<TodoItem[]> => {

@@ -8,9 +8,9 @@ interface Props {
 
 export const Loader = ({ size }: Props) => {
   return (
-    <div className={`${styles.container} ${styles[size]}`}>
+    <u className={`${styles.container} ${styles[size]}`}>
       <div className={styles.loader}></div>
       <b>...</b>
-    </div>
+    </u>
   );
 };

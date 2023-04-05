@@ -25,9 +25,9 @@ export const TodoControls = ({ id }: Props) => {
   const [content, setContent] = React.useState('');
 
   const save = () => {
-    setContent('');
-    setIsEdit(false);
-    setShowAdd(false);
+    if (!content) return;
+
+    cancel();
 
     const payload = {
       id,
@@ -48,17 +48,27 @@ export const TodoControls = ({ id }: Props) => {
     dispatch(todoAPI.check({ id, search, option }));
   };
 
+  const cancel = () => {
+    setContent('');
+    setIsEdit(false);
+    setShowAdd(false);
+  };
+
   let settings = [
-    <button key={0} onClick={() => check(id)} className={styles.add}>
+    <button
+      key={0}
+      onClick={() => check(id)}
+      className={`${styles.button} ${styles[currentTodo.done]}`}
+    >
       ✓
     </button>,
     <button
       key={1}
       onClick={() => {
         setShowAdd(true);
-        inputRef.current!.focus();
+        setTimeout(() => inputRef.current!.focus(), 100);
       }}
-      className={styles.add}
+      className={styles.button}
     >
       +
     </button>,
@@ -68,13 +78,13 @@ export const TodoControls = ({ id }: Props) => {
         setIsEdit(true);
         setShowAdd(true);
         setContent(currentTodo?.content || '');
-        setTimeout(() => inputRef.current!.select(), 0);
+        setTimeout(() => inputRef.current!.select(), 100);
       }}
-      className={styles.add}
+      className={styles.button}
     >
       ✎
     </button>,
-    <button key={3} onClick={() => remove(id)} className={styles.add}>
+    <button key={3} onClick={() => remove(id)} className={`${styles.button} ${styles.delete}`}>
       ×
     </button>,
   ];
@@ -99,7 +109,7 @@ export const TodoControls = ({ id }: Props) => {
           exitDone: styles.exit_done,
         }}
       >
-        <div className={styles.creation}>
+        <span className={styles.creation}>
           <input
             type="text"
             value={content}
@@ -108,10 +118,10 @@ export const TodoControls = ({ id }: Props) => {
             ref={inputRef}
           />
           <button onClick={save}>save</button>
-          <button onClick={() => setShowAdd(false)} className={styles.cancel}>
+          <button onClick={cancel} className={styles.button}>
             ×
           </button>
-        </div>
+        </span>
       </CSSTransition>
     </WithLoader>
   );

@@ -1,12 +1,100 @@
-@import "@/scss/abstracts/variables";
-@import "@/scss/abstracts/placeholders";
+@import '@/scss/abstracts/variables';
+@import '@/scss/abstracts/placeholders';
+
+.todo {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  align-items: center;
+  position: relative;
+}
 
 .todo:not(.todo_child) {
   @extend %box;
-
+  padding: $gap;
   margin-top: $gap;
+  overflow: hidden;
 }
 
 .todo_child {
-  margin-top: $gap;
+  flex: 1 1 100%;
+  box-sizing: border-box;
+  padding-left: calc($gap / 1.5);
+
+  button {
+    @extend %button-round-small;
+  }
+
+  span {
+    width: calc(100% - 5rem);
+    max-height: 5rem;
+    margin-top: -1.3rem;
+    left: 1.5rem;
+    gap: 2rem;
+    padding: 0 2rem;
+
+    button:not(:last-child) {
+      font-size: 1.2rem !important;
+    }
+
+    input {
+      min-height: 2.6rem;
+    }
+  }
+
+  u {
+    width: 2.4rem;
+    height: 2.4rem;
+
+    b {
+      font-size: 1rem;
+      top: -0.2rem;
+    }
+  }
+
+  &::before {
+    content: '';
+    width: 1.1rem;
+    left: 0.7rem;
+    top: 1.2rem;
+    height: 1px;
+    border-top: 1px dotted $secondary-shadow-button;
+    position: absolute;
+    opacity: 0.5;
+  }
+
+  &::after {
+    content: '';
+    width: 1px;
+    height: 4.1rem;
+    left: 0.7rem;
+    top: -3rem;
+    border-left: 1px dotted $secondary-shadow-button;
+    position: absolute;
+    opacity: 0.5;
+  }
+}
+
+.label {
+  @extend %font;
+
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+  pointer-events: none;
+
+  &::before {
+    @extend %mark;
+    position: relative;
+    z-index: 1;
+  }
+
+  .todo_done > & {
+    color: $positive-font-color;
+    text-decoration: line-through;
+  }
+
+  .todo_done > &::before {
+    @extend %mark-positive;
+  }
 }

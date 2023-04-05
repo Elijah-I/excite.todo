@@ -1,4 +1,4 @@
-@import "@/scss/abstracts/mixins";
+@import '@/scss/abstracts/mixins';
 
 // bg colors
 $white: #f5f8ff;
@@ -6,15 +6,20 @@ $primary-bg-color: #cbdbfb;
 
 // font clors
 $primary-font-color: #344870;
+$positive-font-color: #209e2b;
 
 // shadows
 $primary-shadow: #adbad5;
 $secondary-shadow: #e9fcff;
 $primary-shadow-inset: #b7c5e2;
 $primary-shadow-input: #6d89c2;
+
+// buttons
 $primary-shadow-button: #d9eaff;
 $secondary-shadow-button: #344870;
 $selected-shadow-button: #9a8ddc;
+$positive-shadow-button: #8ddc94;
+$negative-shadow-button: #dc8da6;
 
 // sizes
 :root {

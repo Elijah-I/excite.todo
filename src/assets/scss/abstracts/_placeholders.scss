@@ -1,4 +1,4 @@
-@import "@/scss/abstracts/variables";
+@import '@/scss/abstracts/variables';
 
 %container {
   padding: 0 $gap;
@@ -11,10 +11,8 @@
 %box {
   border-radius: $radius;
   background: $primary-bg-color;
-  box-shadow: calc($radius * 0.4) calc($radius * 0.4) calc($radius * 1.2)
-      $primary-shadow,
-    calc($radius * -0.4) calc($radius * -0.4) calc($radius * 1.2)
-      $secondary-shadow;
+  box-shadow: calc($radius * 0.4) calc($radius * 0.4) calc($radius * 1.2) $primary-shadow,
+    calc($radius * -0.4) calc($radius * -0.4) calc($radius * 1.2) $secondary-shadow;
 }
 
 %box-inset {
@@ -30,11 +28,7 @@
   justify-content: center;
 
   border-radius: 50px;
-  background: linear-gradient(
-    145deg,
-    $primary-shadow-button,
-    $primary-shadow-inset
-  );
+  background: linear-gradient(145deg, $primary-shadow-button, $primary-shadow-inset);
 }
 
 %button {
@@ -64,18 +58,35 @@
   min-width: 4rem;
 }
 
+%button-round-small {
+  font-size: 1.6rem !important;
+  height: 2.4rem;
+  width: 2.4rem;
+  min-width: 2.4rem;
+}
+
 %button-selected {
   @extend %button;
 
-  background: linear-gradient(
-    145deg,
-    $primary-shadow-button,
-    $selected-shadow-button
-  );
+  background: linear-gradient(145deg, $primary-shadow-button, $selected-shadow-button);
   box-shadow: 0 0 1rem 0rem $secondary-shadow-button;
 
   cursor: default;
   pointer-events: none;
+}
+
+%button-positive {
+  @extend %button;
+
+  background: linear-gradient(145deg, $primary-shadow-button, $positive-shadow-button);
+  box-shadow: 0 0 1rem 0rem $secondary-shadow-button;
+}
+
+%button-negative {
+  @extend %button;
+
+  background: linear-gradient(145deg, $primary-shadow-button, $negative-shadow-button);
+  box-shadow: 0 0 1rem 0rem $secondary-shadow-button;
 }
 
 %font {
@@ -89,4 +100,20 @@
   font-weight: 700;
   text-transform: uppercase;
   color: $primary-font-color;
+}
+
+%mark {
+  @extend %button-round;
+
+  content: '';
+  display: inline-block;
+  width: 1.6rem;
+  height: 1.6rem;
+  min-width: 1.6rem;
+  margin-right: calc($gap / 2);
+}
+
+%mark-positive {
+  @extend %button-positive;
+  @extend %mark;
 }

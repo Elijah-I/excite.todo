@@ -12,12 +12,11 @@ interface Props {
 export const Todo = ({ data, asChild }: Props) => {
   const containerClass = [styles.todo];
   if (asChild) containerClass.push(styles.todo_child);
+  if (data.done === URL_FILTER_OPTIONS.DONE) containerClass.push(styles.todo_done);
 
   return (
     <div className={containerClass.join(' ')}>
-      <div style={data.done === URL_FILTER_OPTIONS.DONE ? { color: 'red' } : {}}>
-        {data.content}
-      </div>
+      <div className={styles.label}>{data.content}</div>
       <TodoControls id={data.id} />
       {!!data.children.length &&
         data.children.map((child) => <Todo key={child.id} asChild={true} data={child} />)}

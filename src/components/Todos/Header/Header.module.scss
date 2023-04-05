@@ -1,5 +1,5 @@
-@import "@/scss/abstracts/variables";
-@import "@/scss/abstracts/placeholders";
+@import '@/scss/abstracts/variables';
+@import '@/scss/abstracts/placeholders';
 
 .container {
   @extend %container;
@@ -24,13 +24,6 @@
   pointer-events: none;
 
   &::before {
-    @extend %button-round;
-
-    content: "";
-    display: inline-block;
-    width: 1.6rem;
-    height: 1.6rem;
-    min-width: 1.6rem;
-    margin-right: calc($gap / 2);
+    @extend %mark;
   }
 }
