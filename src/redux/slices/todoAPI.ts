@@ -46,8 +46,11 @@ export const todoAPI = {
     for (const todo of todos) {
       if (todo.id === id) {
         todoItem = todo;
-        break;
-      } else if (todo.children.length) todoItem = this.getById(todo.children, id);
+      } else if (todo.children.length) {
+        todoItem = this.getById(todo.children, id);
+      }
+
+      if (Object.keys(todoItem).length) break;
     }
 
     return todoItem;
