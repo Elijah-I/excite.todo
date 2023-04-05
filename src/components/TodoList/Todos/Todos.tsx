@@ -12,11 +12,11 @@ export const Todos = () => {
   const { todos, isLoading } = useAppSelector((state) => state.todo);
 
   useEffect(() => {
-    const requestTodos = async () => {
-      dispatch(todoAPI.getTodos({ search, option }));
+    const request = async () => {
+      dispatch(todoAPI.get({ search, option }));
     };
 
-    requestTodos();
+    request();
   }, [search, option]);
 
   // prettier-ignore

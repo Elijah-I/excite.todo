@@ -1,22 +1,24 @@
 import React from "react";
 import { CSSTransition } from "react-transition-group";
 import { useAppDispatch, useAppSelector } from "hooks/useRedux";
+import { useCustomParams } from "hooks/useCustomParams";
 import type { TodoItem } from "types/todo.state";
 import { todoAPI } from "redux/slices/todoAPI";
 import { WithLoader } from "HOC/WithLoader";
-import styles from "./CreateTodo.module.scss";
+import styles from "./TodoControls.module.scss";
 
 interface Props {
   id: TodoItem["id"];
 }
 
-export const CreateTodo = ({ id }: Props) => {
+export const TodoControls = ({ id }: Props) => {
   const dispatch = useAppDispatch();
+  const [{ search, option }] = useCustomParams();
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const { todos, isUpdating } = useAppSelector((state) => state.todo);
   const currentIsUpdatind = todoAPI.getCurrentIsUpdatind(isUpdating, id);
-  const currentTodo = todoAPI.getTodoById(todos, id);
+  const currentTodo = todoAPI.getById(todos, id);
 
   const [showAdd, setShowAdd] = React.useState(false);
   const [isEdit, setIsEdit] = React.useState(false);
@@ -29,15 +31,17 @@ export const CreateTodo = ({ id }: Props) => {
 
     const payload = {
       id,
-      content
+      content,
+      search,
+      option
     };
 
-    isEdit && dispatch(todoAPI.updateTodo(payload));
-    !isEdit && dispatch(todoAPI.createTodo(payload));
+    isEdit && dispatch(todoAPI.update(payload));
+    !isEdit && dispatch(todoAPI.create(payload));
   };
 
   const remove = (id: TodoItem["id"]) => {
-    dispatch(todoAPI.removeTodo({ id }));
+    dispatch(todoAPI.remove({ id, search, option }));
   };
 
   let settings = [
