@@ -17,7 +17,9 @@ export const Todo = ({ data, asChild }: Props) => {
   return (
     <div className={containerClass.join(' ')}>
       <i></i>
-      <div className={styles.label}>{data.content}</div>
+      <div className={styles.label}>
+        <div>{data.content}</div>
+      </div>
       <TodoControls id={data.id} />
       {!!data.children.length &&
         data.children.map((child) => <Todo key={child.id} asChild={true} data={child} />)}

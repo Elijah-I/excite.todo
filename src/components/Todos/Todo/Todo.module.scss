@@ -95,10 +95,18 @@
 .label {
   @extend %font;
 
+  max-width: 75%;
   display: flex;
   align-items: center;
   margin-right: auto;
   pointer-events: none;
+
+  div {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 
   &::before {
     @extend %mark;
