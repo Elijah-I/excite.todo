@@ -1,8 +1,8 @@
-import React from "react";
-import { useCustomParams } from "hooks/useCustomParams";
-import searchIconScr from "icons/search.svg";
-import crossIconScr from "icons/cross.svg";
-import styles from "./Search.module.scss";
+import React from 'react';
+import { useCustomParams } from 'hooks/useCustomParams';
+import searchIconScr from 'icons/search.svg';
+import crossIconScr from 'icons/cross.svg';
+import styles from './Search.module.scss';
 
 export const Search = () => {
   const [{ search }, setCustomParams] = useCustomParams();
@@ -25,7 +25,7 @@ export const Search = () => {
         type="search"
         value={localSearch}
         onChange={(event) => setLocalSearch(event.currentTarget.value)}
-        onKeyUp={(event) => event.key === "Enter" && applySearch(localSearch)}
+        onKeyUp={(event) => event.key === 'Enter' && applySearch(localSearch)}
         ref={inputRef}
       />
       {localSearch && (
@@ -34,8 +34,8 @@ export const Search = () => {
           className={styles.icon_drop}
           alt="drop search"
           onClick={() => {
-            setLocalSearch("");
-            applySearch("");
+            setLocalSearch('');
+            applySearch('');
           }}
         />
       )}

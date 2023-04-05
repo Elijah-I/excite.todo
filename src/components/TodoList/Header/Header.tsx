@@ -1,6 +1,6 @@
-import React from "react";
-import { TodoControls } from "components/TodoList/TodoControls/TodoControls";
-import styles from "./Header.module.scss";
+import React from 'react';
+import { TodoControls } from 'components/TodoList/TodoControls/TodoControls';
+import styles from './Header.module.scss';
 
 export const Header = () => {
   return (

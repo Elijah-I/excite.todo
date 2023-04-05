@@ -1,15 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { TodoState } from "types/todo.state";
-import { todoAPI } from "./todoAPI";
+import { createSlice } from '@reduxjs/toolkit';
+import type { TodoState } from 'types/todo.state';
+import { todoAPI } from './todoAPI';
 
 const initialState: TodoState = {
   todos: [],
   isLoading: true,
-  isUpdating: {}
+  isUpdating: {},
 };
 
 const todoSlice = createSlice({
-  name: "todo",
+  name: 'todo',
   initialState,
   reducers: {},
   extraReducers: {
@@ -41,8 +41,8 @@ const todoSlice = createSlice({
     },
     [`${todoAPI.update.rejected}`]: (_, action) => {
       throw new Error(action.error.stack);
-    }
-  }
+    },
+  },
 });
 
 export default todoSlice.reducer;

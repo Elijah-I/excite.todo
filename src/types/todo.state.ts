@@ -1,4 +1,4 @@
-import { URL_FILTER_OPTIONS } from "./url.search.params";
+import { URL_FILTER_OPTIONS } from './url.search.params';
 
 export interface TodoItem {
   id: string;
@@ -11,5 +11,5 @@ export interface TodoItem {
 export interface TodoState {
   todos: TodoItem[];
   isLoading: boolean;
-  isUpdating: Record<TodoItem["id"], boolean>;
+  isUpdating: Record<TodoItem['id'], boolean>;
 }

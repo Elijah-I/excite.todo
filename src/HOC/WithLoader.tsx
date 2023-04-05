@@ -1,6 +1,6 @@
-import React from "react";
-import { Loader } from "components/Loader/Loader";
-import type { Size } from "types/loader";
+import React from 'react';
+import { Loader } from 'components/Loader/Loader';
+import type { Size } from 'types/loader';
 
 interface Props {
   isLoading: boolean;

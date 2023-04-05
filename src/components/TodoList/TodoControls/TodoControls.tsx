@@ -1,14 +1,14 @@
-import React from "react";
-import { CSSTransition } from "react-transition-group";
-import { useAppDispatch, useAppSelector } from "hooks/useRedux";
-import { useCustomParams } from "hooks/useCustomParams";
-import type { TodoItem } from "types/todo.state";
-import { todoAPI } from "redux/slices/todoAPI";
-import { WithLoader } from "HOC/WithLoader";
-import styles from "./TodoControls.module.scss";
+import React from 'react';
+import { CSSTransition } from 'react-transition-group';
+import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
+import { useCustomParams } from 'hooks/useCustomParams';
+import type { TodoItem } from 'types/todo.state';
+import { todoAPI } from 'redux/slices/todoAPI';
+import { WithLoader } from 'HOC/WithLoader';
+import styles from './TodoControls.module.scss';
 
 interface Props {
-  id: TodoItem["id"];
+  id: TodoItem['id'];
 }
 
 export const TodoControls = ({ id }: Props) => {
@@ -22,10 +22,10 @@ export const TodoControls = ({ id }: Props) => {
 
   const [showAdd, setShowAdd] = React.useState(false);
   const [isEdit, setIsEdit] = React.useState(false);
-  const [content, setContent] = React.useState("");
+  const [content, setContent] = React.useState('');
 
   const save = () => {
-    setContent("");
+    setContent('');
     setIsEdit(false);
     setShowAdd(false);
 
@@ -33,14 +33,14 @@ export const TodoControls = ({ id }: Props) => {
       id,
       content,
       search,
-      option
+      option,
     };
 
     isEdit && dispatch(todoAPI.update(payload));
     !isEdit && dispatch(todoAPI.create(payload));
   };
 
-  const remove = (id: TodoItem["id"]) => {
+  const remove = (id: TodoItem['id']) => {
     dispatch(todoAPI.remove({ id, search, option }));
   };
 
@@ -60,7 +60,7 @@ export const TodoControls = ({ id }: Props) => {
       onClick={() => {
         setIsEdit(true);
         setShowAdd(true);
-        setContent(currentTodo?.content || "");
+        setContent(currentTodo?.content || '');
         setTimeout(() => inputRef.current!.select(), 0);
       }}
       className={styles.add}
@@ -75,10 +75,10 @@ export const TodoControls = ({ id }: Props) => {
       className={styles.add}
     >
       ×
-    </button>
+    </button>,
   ];
 
-  if (id === "root") {
+  if (id === 'root') {
     settings = settings.slice(0, 1);
   }
 
@@ -95,7 +95,7 @@ export const TodoControls = ({ id }: Props) => {
           enterDone: styles.enter_done,
           exit: styles.exit,
           exitActive: styles.exit_active,
-          exitDone: styles.exit_done
+          exitDone: styles.exit_done,
         }}
       >
         <div className={styles.creation}>
@@ -103,7 +103,7 @@ export const TodoControls = ({ id }: Props) => {
             type="text"
             value={content}
             onChange={(event) => setContent(event.target.value)}
-            onKeyUp={(event) => event.key === "Enter" && save()}
+            onKeyUp={(event) => event.key === 'Enter' && save()}
             ref={inputRef}
           />
           <button onClick={save}>save</button>

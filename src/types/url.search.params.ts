@@ -1,7 +1,7 @@
 export enum URL_FILTER_OPTIONS {
-  "ALL" = "",
-  "NEW" = "new",
-  "DONE" = "done"
+  'ALL' = '',
+  'NEW' = 'new',
+  'DONE' = 'done',
 }
 
 export interface UrlSearchParams {

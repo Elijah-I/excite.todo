@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "hooks/useRedux";
-import { todoAPI } from "redux/slices/todoAPI";
-import { WithLoader } from "HOC/WithLoader";
-import { Todo } from "./Todo/Todo";
-import styles from "./Todos.module.scss";
-import { useCustomParams } from "hooks/useCustomParams";
+import React, { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
+import { todoAPI } from 'redux/slices/todoAPI';
+import { WithLoader } from 'HOC/WithLoader';
+import { Todo } from './Todo/Todo';
+import styles from './Todos.module.scss';
+import { useCustomParams } from 'hooks/useCustomParams';
 
 export const Todos = () => {
   const dispatch = useAppDispatch();
@@ -17,7 +17,7 @@ export const Todos = () => {
     };
 
     request();
-  }, [search, option]);
+  }, [search, option, dispatch]);
 
   // prettier-ignore
   const content = todos.length

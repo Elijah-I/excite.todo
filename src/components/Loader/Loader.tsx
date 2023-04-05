@@ -1,6 +1,6 @@
-import React from "react";
-import styles from "./Loader.module.scss";
-import type { Size } from "types/loader";
+import React from 'react';
+import styles from './Loader.module.scss';
+import type { Size } from 'types/loader';
 
 interface Props {
   size: Size;
