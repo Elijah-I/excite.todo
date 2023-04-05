@@ -44,9 +44,16 @@ export const TodoControls = ({ id }: Props) => {
     dispatch(todoAPI.remove({ id, search, option }));
   };
 
+  const check = (id: TodoItem['id']) => {
+    dispatch(todoAPI.check({ id, search, option }));
+  };
+
   let settings = [
+    <button key={0} onClick={() => check(id)} className={styles.add}>
+      ✓
+    </button>,
     <button
-      key={0}
+      key={1}
       onClick={() => {
         setShowAdd(true);
         inputRef.current!.focus();
@@ -56,7 +63,7 @@ export const TodoControls = ({ id }: Props) => {
       +
     </button>,
     <button
-      key={1}
+      key={2}
       onClick={() => {
         setIsEdit(true);
         setShowAdd(true);
@@ -67,19 +74,13 @@ export const TodoControls = ({ id }: Props) => {
     >
       ✎
     </button>,
-    <button
-      key={2}
-      onClick={() => {
-        remove(id);
-      }}
-      className={styles.add}
-    >
+    <button key={3} onClick={() => remove(id)} className={styles.add}>
       ×
     </button>,
   ];
 
   if (id === 'root') {
-    settings = settings.slice(0, 1);
+    settings = settings.slice(1, 2);
   }
 
   return (

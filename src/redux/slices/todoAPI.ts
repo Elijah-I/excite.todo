@@ -57,10 +57,28 @@ export const todoAPI = {
     return todoItem;
   },
 
-  filterById(todos: TodoItem[], id: TodoItem['id']): TodoItem[] {
+  removeById(todos: TodoItem[], id: TodoItem['id']): TodoItem[] {
     todos.forEach((todo) => {
       if (todo.id === id) todos = todos.filter((item) => item.id !== id);
-      else if (todo.children.length) todo.children = this.filterById(todo.children, id);
+      else if (todo.children.length) todo.children = this.removeById(todo.children, id);
+    });
+
+    return todos;
+  },
+
+  checkById(todos: TodoItem[], id: TodoItem['id']): TodoItem[] {
+    todos.forEach((todo) => {
+      if (todo.id === id)
+        todos.map((item) => {
+          if (item.id === id) {
+            item.done =
+              item.done === URL_FILTER_OPTIONS.NEW
+                ? URL_FILTER_OPTIONS.DONE
+                : URL_FILTER_OPTIONS.NEW;
+          }
+          return item;
+        });
+      else if (todo.children.length) this.checkById(todo.children, id);
     });
 
     return todos;
@@ -130,7 +148,17 @@ export const todoAPI = {
   remove: createAsyncThunk('todo/update', async (payload: RemovePayload): Promise<DumpReturn> => {
     let todos: TodoState['todos'] = await todoAPI.request();
 
-    todos = todoAPI.filterById(todos, payload.id);
+    todos = todoAPI.removeById(todos, payload.id);
+
+    todoAPI.save(todos);
+
+    return todoAPI.dump(todoAPI.filter(todos, payload), payload.id);
+  }),
+
+  check: createAsyncThunk('todo/update', async (payload: RemovePayload): Promise<DumpReturn> => {
+    let todos: TodoState['todos'] = await todoAPI.request();
+
+    todos = todoAPI.checkById(todos, payload.id);
 
     todoAPI.save(todos);
 
