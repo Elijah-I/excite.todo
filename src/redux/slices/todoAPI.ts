@@ -41,13 +41,7 @@ export const todoAPI = {
   },
 
   getById(todos: TodoItem[], id: TodoItem['id']): TodoItem {
-    let todoItem: TodoItem = {
-      id: '',
-      order: -1,
-      done: URL_FILTER_OPTIONS.ALL,
-      content: '',
-      children: [],
-    };
+    let todoItem: TodoItem = {} as TodoItem;
 
     for (const todo of todos) {
       if (todo.id === id) todoItem = todo;
@@ -63,6 +57,25 @@ export const todoAPI = {
       else if (todo.children.length) todo.children = this.removeById(todo.children, id);
     });
 
+    return todos;
+  },
+
+  updateById(todos: TodoItem[], payload: UpdatePayload): TodoItem[] {
+    const todosFragment = todoAPI.getById(todos, payload.id);
+    todosFragment.content = payload.content;
+    return todos;
+  },
+
+  createById(todos: TodoItem[], payload: CreatePayload): TodoItem[] {
+    const todosAddPlace =
+      payload.id === 'root' ? todos : todoAPI.getById(todos, payload.id).children;
+    todosAddPlace.push({
+      id: uniq(),
+      order: todosAddPlace.length,
+      done: URL_FILTER_OPTIONS.NEW,
+      content: payload.content,
+      children: [],
+    });
     return todos;
   },
 
@@ -82,10 +95,6 @@ export const todoAPI = {
     });
 
     return todos;
-  },
-
-  getContainerById(todos: TodoItem[], id: TodoItem['id']) {
-    return id === 'root' ? todos : todoAPI.getById(todos, id).children;
   },
 
   getCurrentIsUpdatind(isUpdating: TodoState['isUpdating'], id: TodoItem['id']) {
@@ -108,7 +117,7 @@ export const todoAPI = {
       });
     }
 
-    return todos;
+    return todos.reverse();
   },
 
   get: createAsyncThunk('todo/get', async (payload: GetPayload): Promise<TodoItem[]> => {
@@ -117,51 +126,30 @@ export const todoAPI = {
   }),
 
   create: createAsyncThunk('todo/create', async (payload: CreatePayload): Promise<DumpReturn> => {
-    const todos: TodoState['todos'] = await todoAPI.request();
-    const todoContainer = todoAPI.getContainerById(todos, payload.id);
-
-    todoContainer.push({
-      id: uniq(),
-      order: todoContainer.length,
-      done: URL_FILTER_OPTIONS.NEW,
-      content: payload.content,
-      children: [],
-    });
-
+    let todos: TodoState['todos'] = await todoAPI.request();
+    todos = todoAPI.createById(todos, payload);
     todoAPI.save(todos);
-
     return todoAPI.dump(todoAPI.filter(todos, payload), payload.id);
   }),
 
   update: createAsyncThunk('todo/update', async (payload: UpdatePayload): Promise<DumpReturn> => {
-    const todos: TodoState['todos'] = await todoAPI.request();
-
-    const currentTodo = todoAPI.getById(todos, payload.id);
-
-    currentTodo.content = payload.content;
-
+    let todos: TodoState['todos'] = await todoAPI.request();
+    todos = todoAPI.updateById(todos, payload);
     todoAPI.save(todos);
-
     return todoAPI.dump(todoAPI.filter(todos, payload), payload.id);
   }),
 
   remove: createAsyncThunk('todo/update', async (payload: RemovePayload): Promise<DumpReturn> => {
     let todos: TodoState['todos'] = await todoAPI.request();
-
     todos = todoAPI.removeById(todos, payload.id);
-
     todoAPI.save(todos);
-
     return todoAPI.dump(todoAPI.filter(todos, payload), payload.id);
   }),
 
   check: createAsyncThunk('todo/update', async (payload: RemovePayload): Promise<DumpReturn> => {
     let todos: TodoState['todos'] = await todoAPI.request();
-
     todos = todoAPI.checkById(todos, payload.id);
-
     todoAPI.save(todos);
-
     return todoAPI.dump(todoAPI.filter(todos, payload), payload.id);
   }),
 };
