@@ -1,6 +1,6 @@
-@import "@/scss/abstracts/mixins";
-@import "@/scss/abstracts/variables";
-@import "@/scss/abstracts/placeholders";
+@import '@/scss/abstracts/mixins';
+@import '@/scss/abstracts/variables';
+@import '@/scss/abstracts/placeholders';
 
 html {
   font-size: 10px;
@@ -10,8 +10,9 @@ html {
 }
 
 body {
-  font: 400 1.6rem/1.6rem "Roboto", sans-serif;
+  font: 400 1.6rem/1.6rem 'Roboto', sans-serif;
   background-color: $primary-bg-color;
+  overflow: hidden overlay;
 }
 
 ::-webkit-scrollbar {
@@ -24,9 +25,9 @@ body {
   border-radius: 0.6rem;
 }
 
-input[type="text"],
-input[type="date"],
-input[type="search"] {
+input[type='text'],
+input[type='date'],
+input[type='search'] {
   @extend %box-shadow;
 
   width: 100%;
@@ -40,10 +41,10 @@ input[type="search"] {
   }
 }
 
-input[type="search"]::-webkit-search-decoration,
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-results-button,
-input[type="search"]::-webkit-search-results-decoration {
+input[type='search']::-webkit-search-decoration,
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-results-button,
+input[type='search']::-webkit-search-results-decoration {
   display: none;
 }
 
