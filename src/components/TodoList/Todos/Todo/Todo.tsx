@@ -1,5 +1,6 @@
 import React from "react";
-import { TodoItem } from "types/todo.state";
+import { CreateTodo } from "components/TodoList/CreateTodo/CreateTodo";
+import type { TodoItem } from "types/todo.state";
 import styles from "./Todo.module.scss";
 
 interface Props {
@@ -14,7 +15,8 @@ export const Todo = ({ data, asChild }: Props) => {
   return (
     <div className={containerClass.join(" ")}>
       <div>{data.content}</div>
-      {data.children.length &&
+      <CreateTodo id={data.id} />
+      {!!data.children.length &&
         data.children.map((child) => (
           <Todo key={child.id} asChild={true} data={child} />
         ))}

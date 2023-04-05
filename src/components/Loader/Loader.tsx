@@ -1,9 +1,14 @@
 import React from "react";
 import styles from "./Loader.module.scss";
+import type { Size } from "types/loader";
 
-export const Loader = () => {
+interface Props {
+  size: Size;
+}
+
+export const Loader = ({ size }: Props) => {
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${styles[size]}`}>
       <div className={styles.loader}></div>
       <b>...</b>
     </div>

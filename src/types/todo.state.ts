@@ -11,4 +11,5 @@ export interface TodoItem {
 export interface TodoState {
   todos: TodoItem[];
   isLoading: boolean;
+  isUpdating: Record<TodoItem["id"], boolean>;
 }

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "hooks/useRedux";
-import { getTodos } from "redux/slices/todoSlice";
+import { todoAPI } from "redux/slices/todoAPI";
 import { WithLoader } from "HOC/WithLoader";
 import { Todo } from "./Todo/Todo";
 import styles from "./Todos.module.scss";
@@ -13,7 +13,7 @@ export const Todos = () => {
 
   useEffect(() => {
     const requestTodos = async () => {
-      dispatch(getTodos({ search, option }));
+      dispatch(todoAPI.getTodos({ search, option }));
     };
 
     requestTodos();
@@ -25,7 +25,7 @@ export const Todos = () => {
     : <div className={styles.empty}>no todo found</div>;
 
   return (
-    <WithLoader isLoading={isLoading}>
+    <WithLoader size="large" isLoading={isLoading}>
       <div className={styles.todos}>{content}</div>
     </WithLoader>
   );

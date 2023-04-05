@@ -2,23 +2,50 @@
 
 .container {
   @extend %box-inset;
-  width: 20rem;
-  height: 20rem;
   border-radius: 100%;
   position: relative;
-  margin: calc($gap * 2) auto 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.large {
+  width: 20rem;
+  height: 20rem;
+
+  margin: calc($gap * 2) auto 0 auto;
+
+  b {
+    font-size: 8rem;
+    top: -2rem;
+  }
+}
+
+.medium {
+  width: 10rem;
+  height: 10rem;
+
+  b {
+    font-size: 4rem;
+    top: -1rem;
+  }
+}
+
+.small {
+  width: 4rem;
+  height: 4rem;
+
+  b {
+    font-size: 2rem;
+    top: -0.5rem;
+  }
 }
 
 .container b {
   @extend %font-header;
 
   position: relative;
-  top: -2rem;
   z-index: 2;
-  font-size: 8rem;
   opacity: 0.5;
   user-select: none;
 }

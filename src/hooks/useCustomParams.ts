@@ -1,5 +1,6 @@
 import { useSearchParams } from "react-router-dom";
-import { URL_FILTER_OPTIONS, UrlSearchParams } from "types/url.search.params";
+import { URL_FILTER_OPTIONS } from "types/url.search.params";
+import type { UrlSearchParams } from "types/url.search.params";
 
 export const useCustomParams = (): [
   Required<UrlSearchParams>,

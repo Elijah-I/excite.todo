@@ -1,6 +1,6 @@
 import React from "react";
-import { URL_FILTER_OPTIONS } from "types/url.search.params";
 import { useCustomParams } from "hooks/useCustomParams";
+import { URL_FILTER_OPTIONS } from "types/url.search.params";
 import styles from "./Options.module.scss";
 
 export const Options = () => {

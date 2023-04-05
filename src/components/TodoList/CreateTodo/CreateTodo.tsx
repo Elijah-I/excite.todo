@@ -1,34 +1,82 @@
 import React from "react";
-import styles from "./CreateTodo.module.scss";
 import { CSSTransition } from "react-transition-group";
+import { useAppDispatch, useAppSelector } from "hooks/useRedux";
+import { todoAPI } from "redux/slices/todoAPI";
+import { WithLoader } from "HOC/WithLoader";
+import styles from "./CreateTodo.module.scss";
 
 interface Props {
-  initialValue?: string;
-  onSave: (content: string) => void;
+  id: string;
 }
 
-export const CreateTodo = ({ onSave, initialValue = "" }: Props) => {
+export const CreateTodo = ({ id }: Props) => {
+  const dispatch = useAppDispatch();
+
+  const { todos, isUpdating } = useAppSelector((state) => state.todo);
+  const currentTodo = todoAPI.getTodoById(todos, id);
+  const currentIsUpdatind = todoAPI.getCurrentIsUpdatind(isUpdating, id);
+
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [showAdd, setShowAdd] = React.useState(false);
-  const [value, setValue] = React.useState(initialValue);
+  const [isEdit, setIsEdit] = React.useState(false);
+  const [content, setContent] = React.useState(
+    isEdit && currentTodo ? currentTodo.content : ""
+  );
 
   const save = () => {
-    onSave(value);
-    setValue("");
+    setContent("");
+    setIsEdit(false);
     setShowAdd(false);
+
+    !isEdit &&
+      dispatch(
+        todoAPI.createTodo({
+          id,
+          content
+        })
+      );
   };
 
+  let settings = [
+    <button
+      key={0}
+      onClick={() => {
+        setShowAdd(true);
+        inputRef.current!.focus();
+      }}
+      className={styles.add}
+    >
+      +
+    </button>,
+    <button
+      key={1}
+      onClick={() => {
+        setIsEdit(true);
+        setShowAdd(true);
+        inputRef.current!.focus();
+      }}
+      className={styles.add}
+    >
+      ✎
+    </button>,
+    <button
+      key={2}
+      onClick={() => {
+        console.log("delete: " + id);
+      }}
+      className={styles.add}
+    >
+      ×
+    </button>
+  ];
+
+  if (id === "root") {
+    settings = settings.slice(0, 1);
+  }
+
   return (
-    <>
-      <button
-        onClick={() => {
-          setShowAdd(true);
-          inputRef.current!.focus();
-        }}
-        className={styles.add}
-      >
-        +
-      </button>
+    <WithLoader size="small" isLoading={currentIsUpdatind}>
+      {settings}
 
       <CSSTransition
         in={showAdd}
@@ -45,8 +93,8 @@ export const CreateTodo = ({ onSave, initialValue = "" }: Props) => {
         <div className={styles.creation}>
           <input
             type="text"
-            value={value}
-            onChange={(event) => setValue(event.target.value)}
+            value={content}
+            onChange={(event) => setContent(event.target.value)}
             onKeyUp={(event) => event.key === "Enter" && save()}
             ref={inputRef}
           />
@@ -56,6 +104,6 @@ export const CreateTodo = ({ onSave, initialValue = "" }: Props) => {
           </button>
         </div>
       </CSSTransition>
-    </>
+    </WithLoader>
   );
 };
