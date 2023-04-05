@@ -10,6 +10,14 @@ interface createTodoPayload {
   id: TodoItem["id"];
 }
 interface updateTodoPayload extends createTodoPayload {}
+interface removeTodoPayload {
+  id: TodoItem["id"];
+}
+
+interface DumpReturn {
+  todos: TodoItem[];
+  currentTodo: TodoItem["id"];
+}
 
 const delay = (ms: number) =>
   new Promise<void>((resolve) => {
@@ -22,16 +30,41 @@ export const todoAPI = {
     return JSON.parse(localStorage.getItem("todos") || "[]");
   },
 
-  getTodoById(todos: TodoItem[], id: TodoItem["id"]): TodoItem | undefined {
-    let todoItem: TodoItem | undefined = undefined;
+  async saveTodos(todos: TodoItem[]) {
+    await delay(0);
+    localStorage.setItem("todos", JSON.stringify(todos));
+  },
 
-    todos.forEach((todo) => {
+  dump(todos: TodoItem[], id: TodoItem["id"]): DumpReturn {
+    return { todos, currentTodo: id };
+  },
+
+  getTodoById(todos: TodoItem[], id: TodoItem["id"]): TodoItem {
+    let todoItem: TodoItem = {
+      id: "",
+      order: -1,
+      done: URL_FILTER_OPTIONS.ALL,
+      content: "",
+      children: []
+    };
+
+    for (const todo of todos) {
       if (todo.id === id) todoItem = todo;
       else if (todo.children.length)
         todoItem = this.getTodoById(todo.children, id);
-    });
+    }
 
     return todoItem;
+  },
+
+  filterById(todos: TodoItem[], id: TodoItem["id"]): TodoItem[] {
+    todos.forEach((todo) => {
+      if (todo.id === id) todos = todos.filter((item) => item.id !== id);
+      else if (todo.children.length)
+        todo.children = this.filterById(todo.children, id);
+    });
+
+    return todos;
   },
 
   getCurrentIsUpdatind(
@@ -69,14 +102,13 @@ export const todoAPI = {
 
   createTodo: createAsyncThunk(
     "todo/createTodo",
-    async (payload: createTodoPayload) => {
+    async (payload: createTodoPayload): Promise<DumpReturn> => {
       const todos: TodoState["todos"] = await todoAPI.requestTodos();
+
       const todoContainer =
         payload.id === "root"
           ? todos
-          : todoAPI.getTodoById(todos, payload.id)?.children;
-
-      if (!todoContainer) return { todos, currentTodo: payload.id };
+          : todoAPI.getTodoById(todos, payload.id).children;
 
       todoContainer.push({
         id: uniq(),
@@ -86,25 +118,36 @@ export const todoAPI = {
         children: []
       });
 
-      localStorage.setItem("todos", JSON.stringify(todos));
+      todoAPI.saveTodos(todos);
 
-      return { todos, currentTodo: payload.id };
+      return todoAPI.dump(todos, payload.id);
     }
   ),
 
   updateTodo: createAsyncThunk(
     "todo/updateTodo",
-    async (payload: updateTodoPayload) => {
+    async (payload: updateTodoPayload): Promise<DumpReturn> => {
       const todos: TodoState["todos"] = await todoAPI.requestTodos();
+
       const currentTodo = todoAPI.getTodoById(todos, payload.id);
-
-      if (currentTodo === undefined) return { todos, currentTodo: payload.id };
-
       currentTodo.content = payload.content;
 
-      localStorage.setItem("todos", JSON.stringify(todos));
+      todoAPI.saveTodos(todos);
 
-      return { todos, currentTodo: payload.id };
+      return todoAPI.dump(todos, payload.id);
+    }
+  ),
+
+  removeTodo: createAsyncThunk(
+    "todo/updateTodo",
+    async (payload: removeTodoPayload): Promise<DumpReturn> => {
+      let todos: TodoState["todos"] = await todoAPI.requestTodos();
+
+      todos = todoAPI.filterById(todos, payload.id);
+
+      todoAPI.saveTodos(todos);
+
+      return todoAPI.dump(todos, payload.id);
     }
   )
 };

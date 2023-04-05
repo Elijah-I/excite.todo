@@ -27,21 +27,17 @@ export const CreateTodo = ({ id }: Props) => {
     setIsEdit(false);
     setShowAdd(false);
 
-    !isEdit &&
-      dispatch(
-        todoAPI.createTodo({
-          id,
-          content
-        })
-      );
+    const payload = {
+      id,
+      content
+    };
 
-    isEdit &&
-      dispatch(
-        todoAPI.updateTodo({
-          id,
-          content
-        })
-      );
+    isEdit && dispatch(todoAPI.updateTodo(payload));
+    !isEdit && dispatch(todoAPI.createTodo(payload));
+  };
+
+  const remove = (id: TodoItem["id"]) => {
+    dispatch(todoAPI.removeTodo({ id }));
   };
 
   let settings = [
@@ -61,7 +57,7 @@ export const CreateTodo = ({ id }: Props) => {
         setIsEdit(true);
         setShowAdd(true);
         setContent(currentTodo?.content || "");
-        inputRef.current!.focus();
+        setTimeout(() => inputRef.current!.select(), 0);
       }}
       className={styles.add}
     >
@@ -70,7 +66,7 @@ export const CreateTodo = ({ id }: Props) => {
     <button
       key={2}
       onClick={() => {
-        console.log("delete: " + id);
+        remove(id);
       }}
       className={styles.add}
     >
