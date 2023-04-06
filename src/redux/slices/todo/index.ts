@@ -22,6 +22,10 @@ const todoSlice = createSlice({
         state.isLoading = false;
       })
 
+      .addCase(todoAPI.set.fulfilled, (state, action) => {
+        state.todos = action.payload;
+      })
+
       .addCase(todoAPI.update.pending, (state, action) => {
         state.isUpdating[action.meta.arg.id] = true;
       })

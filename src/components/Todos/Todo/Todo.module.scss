@@ -10,7 +10,8 @@
 }
 
 .todo:not(.todo_child) {
-  @extend %box;
+  @extend %box-small-shadow;
+
   padding: $gap;
   margin-top: $gap;
   overflow: hidden;

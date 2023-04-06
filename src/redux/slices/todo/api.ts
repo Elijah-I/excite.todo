@@ -7,6 +7,9 @@ import { NOTIFICATION_STATUS } from 'types/notification';
 import { setNotification } from '../notification';
 
 interface GetPayload extends UrlSearchParams {}
+interface SetPayload {
+  todos: TodoItem[];
+}
 interface FilterPayload extends UrlSearchParams {}
 
 interface CreatePayload extends UrlSearchParams {
@@ -130,6 +133,12 @@ export const todoAPI = {
   get: createAsyncThunk('todo/get', async (payload: GetPayload): Promise<TodoItem[]> => {
     const todos: TodoState['todos'] = await todoAPI.request();
     return todoAPI.filter(todos, payload);
+  }),
+
+  set: createAsyncThunk('todo/set', async (payload: SetPayload): Promise<TodoItem[]> => {
+    await todoAPI.delay(0);
+    todoAPI.save(payload.todos);
+    return payload.todos;
   }),
 
   create: createAsyncThunk(

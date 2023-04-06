@@ -1,9 +1,9 @@
 import React from 'react';
+import { Reorder } from 'framer-motion';
 import { TodoControls } from 'components/Todos/TodoControls/TodoControls';
 import { URL_FILTER_OPTIONS } from 'types/url.search.params';
 import type { TodoItem } from 'types/todo';
 import styles from './Todo.module.scss';
-import { useAppSelector } from 'hooks/useRedux';
 
 interface Props {
   data: TodoItem;
@@ -15,8 +15,8 @@ export const Todo = ({ data, asChild }: Props) => {
   if (asChild) containerClass.push(styles.todo_child);
   if (data.done === URL_FILTER_OPTIONS.DONE) containerClass.push(styles.todo_done);
 
-  return (
-    <div className={containerClass.join(' ')}>
+  const content = (
+    <>
       <i></i>
       <div className={styles.label}>
         <div>{data.content}</div>
@@ -24,6 +24,16 @@ export const Todo = ({ data, asChild }: Props) => {
       <TodoControls id={data.id} />
       {!!data.children.length &&
         data.children.map((child) => <Todo key={child.id} asChild={true} data={child} />)}
-    </div>
+    </>
+  );
+
+  if (asChild) {
+    return <div className={containerClass.join(' ')}>{content}</div>;
+  }
+
+  return (
+    <Reorder.Item as="div" value={data} className={containerClass.join(' ')}>
+      {content}
+    </Reorder.Item>
   );
 };

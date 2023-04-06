@@ -15,6 +15,13 @@
     calc($radius * -0.4) calc($radius * -0.4) calc($radius * 1.2) $secondary-shadow;
 }
 
+%box-small-shadow {
+  @extend %box;
+
+  box-shadow: calc($radius * 0.1) calc($radius * 0.1) calc($radius * 0.3) $primary-shadow,
+    calc($radius * -0.1) calc($radius * -0.1) calc($radius * 0.3) $secondary-shadow;
+}
+
 %box-inset {
   @extend %box;
   background: linear-gradient(145deg, $primary-shadow-inset, $secondary-shadow);
