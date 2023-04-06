@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { v4 as uniq } from 'uuid';
 import type { UrlSearchParams } from 'types/url.search.params';
 import { URL_FILTER_OPTIONS } from 'types/url.search.params';
-import type { TodoItem, TodoState } from 'types/todo.state';
+import type { TodoItem, TodoState } from 'types/todo';
 import { NOTIFICATION_STATUS } from 'types/notification';
 import { setNotification } from '../notification';
 

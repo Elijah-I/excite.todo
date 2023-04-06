@@ -1,7 +1,7 @@
 import React from 'react';
 import { TodoControls } from 'components/Todos/TodoControls/TodoControls';
 import { URL_FILTER_OPTIONS } from 'types/url.search.params';
-import type { TodoItem } from 'types/todo.state';
+import type { TodoItem } from 'types/todo';
 import styles from './Todo.module.scss';
 import { useAppSelector } from 'hooks/useRedux';
 
