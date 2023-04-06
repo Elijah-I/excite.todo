@@ -133,7 +133,7 @@ export const todoAPI = {
   }),
 
   create: createAsyncThunk(
-    'todo/create',
+    'todo/update',
     async (payload: CreatePayload, thunkAPI): Promise<DumpReturn> => {
       let todos: TodoState['todos'] = await todoAPI.request();
       todos = todoAPI.createById(todos, payload);
