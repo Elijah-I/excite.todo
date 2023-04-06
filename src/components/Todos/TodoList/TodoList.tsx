@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
-import { todoAPI } from 'redux/slices/todoAPI';
+import { todoAPI } from 'redux/slices/todo/api';
 import { WithLoader } from 'HOC/WithLoader';
 import { Todo } from 'components/Todos/Todo/Todo';
 import { useCustomParams } from 'hooks/useCustomParams';

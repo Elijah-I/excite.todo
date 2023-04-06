@@ -3,7 +3,7 @@ import { CSSTransition } from 'react-transition-group';
 import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
 import { useCustomParams } from 'hooks/useCustomParams';
 import type { TodoItem } from 'types/todo.state';
-import { todoAPI } from 'redux/slices/todoAPI';
+import { todoAPI } from 'redux/slices/todo/api';
 import { WithLoader } from 'HOC/WithLoader';
 import styles from './TodoControls.module.scss';
 

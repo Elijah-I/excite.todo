@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import todoSlice from './slices/todoSlice';
+import notificationSlice from './slices/notification/';
+import todoSlice from './slices/todo/';
 
 const store = configureStore({
   reducer: {
     todo: todoSlice,
+    notification: notificationSlice,
   },
 });
 

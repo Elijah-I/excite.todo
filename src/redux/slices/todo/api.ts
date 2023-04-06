@@ -3,6 +3,8 @@ import { v4 as uniq } from 'uuid';
 import type { UrlSearchParams } from 'types/url.search.params';
 import { URL_FILTER_OPTIONS } from 'types/url.search.params';
 import type { TodoItem, TodoState } from 'types/todo.state';
+import { NOTIFICATION_STATUS } from 'types/notification';
+import { setNotification } from '../notification';
 
 interface GetPayload extends UrlSearchParams {}
 interface FilterPayload extends UrlSearchParams {}
@@ -130,19 +132,27 @@ export const todoAPI = {
     return todoAPI.filter(todos, payload);
   }),
 
-  create: createAsyncThunk('todo/create', async (payload: CreatePayload): Promise<DumpReturn> => {
-    let todos: TodoState['todos'] = await todoAPI.request();
-    todos = todoAPI.createById(todos, payload);
-    todoAPI.save(todos);
-    return todoAPI.dump(todoAPI.filter(todos, payload), payload.id);
-  }),
+  create: createAsyncThunk(
+    'todo/create',
+    async (payload: CreatePayload, thunkAPI): Promise<DumpReturn> => {
+      let todos: TodoState['todos'] = await todoAPI.request();
+      todos = todoAPI.createById(todos, payload);
+      todoAPI.save(todos);
+      thunkAPI.dispatch(setNotification({ show: true, status: NOTIFICATION_STATUS.CREATED }));
+      return todoAPI.dump(todoAPI.filter(todos, payload), payload.id);
+    }
+  ),
 
-  update: createAsyncThunk('todo/update', async (payload: UpdatePayload): Promise<DumpReturn> => {
-    let todos: TodoState['todos'] = await todoAPI.request();
-    todos = todoAPI.updateById(todos, payload);
-    todoAPI.save(todos);
-    return todoAPI.dump(todoAPI.filter(todos, payload), payload.id);
-  }),
+  update: createAsyncThunk(
+    'todo/update',
+    async (payload: UpdatePayload, thunkAPI): Promise<DumpReturn> => {
+      let todos: TodoState['todos'] = await todoAPI.request();
+      todos = todoAPI.updateById(todos, payload);
+      todoAPI.save(todos);
+      thunkAPI.dispatch(setNotification({ show: true, status: NOTIFICATION_STATUS.UPDATED }));
+      return todoAPI.dump(todoAPI.filter(todos, payload), payload.id);
+    }
+  ),
 
   remove: createAsyncThunk('todo/update', async (payload: RemovePayload): Promise<DumpReturn> => {
     let todos: TodoState['todos'] = await todoAPI.request();

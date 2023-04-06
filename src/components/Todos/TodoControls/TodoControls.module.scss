@@ -28,7 +28,7 @@
   opacity: 0;
   z-index: 4;
   visibility: hidden;
-  will-change: top, opacity;
+  will-change: top, opacity, visibility;
   transition: top 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
 }
 .enter_done,

@@ -20,6 +20,11 @@
   background: linear-gradient(145deg, $primary-shadow-inset, $secondary-shadow);
 }
 
+%box-positive {
+  @extend %box;
+  background: linear-gradient(145deg, $positive-shadow-button, $secondary-shadow);
+}
+
 %box-shadow {
   @extend %box;
 

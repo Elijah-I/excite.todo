@@ -1,0 +1,27 @@
+@import '@/scss/abstracts/variables';
+@import '@/scss/abstracts/placeholders';
+
+.notification,
+.exit,
+.exit_done,
+.exit_active,
+.enter,
+.enter_done,
+.enter_active {
+  @extend %box-positive;
+  @extend %font;
+
+  padding: $gap;
+  position: fixed;
+  bottom: $gap;
+  left: -100%;
+  opacity: 0;
+  z-index: 5;
+  will-change: left, opacity;
+  transition: left 0.3s ease, opacity 0.3s ease;
+}
+.enter_done,
+.enter_active {
+  opacity: 1;
+  left: $gap;
+}

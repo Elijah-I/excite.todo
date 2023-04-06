@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { TodoState } from 'types/todo.state';
-import { todoAPI } from './todoAPI';
+import { todoAPI } from './api';
 
 const initialState: TodoState = {
   todos: [],
