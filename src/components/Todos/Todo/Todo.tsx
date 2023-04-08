@@ -8,9 +8,10 @@ import styles from './Todo.module.scss';
 interface Props {
   data: TodoItem;
   asChild?: boolean;
+  draggable: boolean;
 }
 
-export const Todo = ({ data, asChild }: Props) => {
+export const Todo = ({ data, asChild, draggable }: Props) => {
   const containerClass = [styles.todo];
   if (asChild) containerClass.push(styles.todo_child);
   if (data.done === URL_FILTER_OPTIONS.DONE) containerClass.push(styles.todo_done);
@@ -23,7 +24,9 @@ export const Todo = ({ data, asChild }: Props) => {
       </div>
       <TodoControls id={data.id} />
       {!!data.children.length &&
-        data.children.map((child) => <Todo key={child.id} asChild={true} data={child} />)}
+        data.children.map((child) => (
+          <Todo key={child.id} asChild={true} data={child} draggable={false} />
+        ))}
     </>
   );
 
@@ -32,7 +35,12 @@ export const Todo = ({ data, asChild }: Props) => {
   }
 
   return (
-    <Reorder.Item as="div" value={data} className={containerClass.join(' ')}>
+    <Reorder.Item
+      as="div"
+      value={data}
+      dragListener={draggable}
+      className={containerClass.join(' ')}
+    >
       {content}
     </Reorder.Item>
   );

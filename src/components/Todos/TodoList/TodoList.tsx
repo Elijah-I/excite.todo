@@ -21,16 +21,21 @@ export const TodoList = () => {
     request();
   }, [search, option, dispatch]);
 
-  const reorder = (todos: TodoItem[]) => {
-    console.log(todos);
+  console.log(search, option);
 
+  const reorder = (todos: TodoItem[]) => {
     dispatch(todoAPI.set({ todos }));
   };
 
-  // prettier-ignore
-  const content = todos.length
-    ? <Reorder.Group as="span" axis='y' values={todos} onReorder={reorder}>{todos.map((todo) => <Todo key={todo.id} data={todo} />)}</Reorder.Group>
-    : <div className={styles.empty}>no todo found</div>;
+  const content = todos.length ? (
+    <Reorder.Group as="span" axis="y" values={todos} onReorder={reorder}>
+      {todos.map((todo) => (
+        <Todo key={todo.id} data={todo} draggable={!search && !option} />
+      ))}
+    </Reorder.Group>
+  ) : (
+    <div className={styles.empty}>no todo found</div>
+  );
 
   return (
     <WithLoader size="large" isLoading={isLoading}>
